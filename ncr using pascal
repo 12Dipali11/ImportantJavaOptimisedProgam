@@ -1,13 +1,24 @@
+Given three integers A, B, and C, where A represents n, B represents r, and C represents m, find and return the value of nCr % m where nCr % m = (n!/((n-r)!*r!))% m.
+x! means factorial of x i.e. x! = 1 * 2 * 3... * x.
+Input 1:
+
+ A = 5
+ B = 2
+ C = 13
+ Output 1:
+
+ 10
+
 public class Solution {
     public int solve(int A, int B, int C) {
         //pascal triangle
-        int[][] dp = new int[A + 1][B + 1];
-        for(int i = 0; i <= A; i++) {
-            for(int j = 0; j <= Math.min(i, B); j++) {
-                if(j == i || j == 0) {
+        int[][] dp = new int[A + 1][B + 1]; // 2D array with A+1 row and B+1 column as it starts with 0, we need to add 1
+        for(int i = 0; i <= A; i++) { // goes upto A 5
+            for(int j = 0; j <= Math.min(i, B); j++) { // will go upto minimun of i or B(here B represents r) if i is 6 and B is 5 then it will go upto 5
+                if(j == i || j == 0) { // j==i means row==column 1==1 and j==0 then 1 would store
                     dp[i][j] = 1;
                 } else {
-                    dp[i][j] = (dp[i - 1][j - 1] % C + dp[i - 1][j] % C) % C;
+                    dp[i][j] = (dp[i - 1][j - 1] % C + dp[i - 1][j] % C) % C; // sum of previous column + previous row element 
                 }
             }
         }
